@@ -1,0 +1,5 @@
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=ihopeitisntpassword123
+POSTGRES_DBNAME=customer_journey_demo
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
