@@ -168,36 +168,43 @@ app = Dash(__name__)
 # use a bootstrap theme
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+def serve_layout():
+    layout = dbc.Container(
+        fluid=True,
+        children=[
+            dbc.Row(
+                dbc.Col(
+                    html.H1("Product Testing Results", className="text-center my-4"),
+                    width=12
+                )
+            ),
+
+            # KPI cards row
+            kpi_cards,
+
+            # Charts row
+            dbc.Row(
+                [
+                    dbc.Col(dcc.Graph(figure=fig_ts), md=6),
+                    dbc.Col(dcc.Graph(figure=fig_bar), md=6),
+                ],
+                className="mb-4"
+            ),
+
+            # histogram chart row
+            dbc.Row(
+                dbc.Col(dcc.Graph(figure=fig_hist), width=6),
+                className="mb-4 justify-content-center"
+            ),
+        ]
+    )
+
+    return layout
+
 # layout
-app.layout = dbc.Container(
-    fluid=True,
-    children=[
-        dbc.Row(
-            dbc.Col(
-                html.H1("Product Testing Results", className="text-center my-4"),
-                width=12
-            )
-        ),
-
-        # KPI cards row
-        kpi_cards,
-
-        # Charts row
-        dbc.Row(
-            [
-                dbc.Col(dcc.Graph(figure=fig_ts), md=6),
-                dbc.Col(dcc.Graph(figure=fig_bar), md=6),
-            ],
-            className="mb-4"
-        ),
-
-        # histogram chart row
-        dbc.Row(
-            dbc.Col(dcc.Graph(figure=fig_hist), width=6),
-            className="mb-4 justify-content-center"
-        ),
-    ]
-)
+app.layout = serve_layout()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8050, debug=True)
+
+    # test
